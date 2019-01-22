@@ -1,3 +1,16 @@
+/**
+ * Unique permutations using maths
+ * 
+ * From - https://youtu.be/nYFd7VHKyWQ 
+ */
+
+/**
+ * getFactorial
+ * 
+ * @param {number} x 
+ * @returns {number}
+ */
+
 function getFactorial(x) {
 
     if (x === 0) {
@@ -7,18 +20,28 @@ function getFactorial(x) {
 
 }
 
+/**
+ * getNumberOfOccurencesInString
+ * 
+ * @param {string} input 
+ * @param {string} valueToFind 
+ * @returns {number}
+ */
+
 function getNumberOfOccurencesInString(input, valueToFind) {
-    
+
     return input
         .split('')
         .filter(str => valueToFind === str)
         .length;
-        
+
 }
 
 /**
+ * getNumberOfPermutations
  * 
- * formula - https://youtu.be/nYFd7VHKyWQ 
+ * @param {string} input 
+ * @returns {number}
  * 
  * factorial of string length
  * -------------------------- (divided by)
@@ -38,7 +61,7 @@ function getNumberOfPermutations(input) {
         return 0;
     }
 
-    if(getNumberOfOccurencesInString(input, input[0]) === input.length) {
+    if (getNumberOfOccurencesInString(input, input[0]) === input.length) {
         return 1;
     }
 
@@ -64,11 +87,16 @@ function getNumberOfPermutations(input) {
 }
 
 /**
+ * inputToObject
+ * 
+ * @param {string} input 
+ * @returns {object}
  * 
  * takes a string input and converts it to an object
  * keys are the unique characters and their values are the amount of time they appear in the string
  * AAABBCD // { A: 3, B: 2, C: 1, D: 1 }
  */
+
 function inputToObject(input) {
 
     let result = {}
@@ -85,10 +113,18 @@ function inputToObject(input) {
 
 }
 
-// when passed the character count object, returns the next character that has a count higher than 1
-// e.g. { A: 0, B: 1, C: 2 } // B
-function getFirstAvailableCharacter(input = {}, startFromKeyIndex = 0) {
-    
+/**
+ * getFirstAvailableCharacter
+ * 
+ * @param {object} input 
+ * @param {number} startFromKeyIndex 
+ * 
+ * when passed the character count object, returns the next character that has a count higher than 1
+ * e.g. { A: 0, B: 1, C: 2 } // B
+ */
+
+function getFirstAvailableCharacter(input, startFromKeyIndex = 0) {
+
     return Object
         .keys(input)
         .filter((key, i) => i >= startFromKeyIndex && input[key] > 0)
@@ -96,19 +132,33 @@ function getFirstAvailableCharacter(input = {}, startFromKeyIndex = 0) {
         || null;
 
 }
+ 
+/**
+ * isInputObjectStillActive
+ * 
+ * @param {object} input 
+ * 
+ * if the character count object has all zeros as values it is inactive
+ * e.g. { A: 0, B: 0 }
+ */
 
-// if the character count object has all zeros as values it is inactive
-// e.g. { A: 0, B: 0 }
 function isInputObjectStillActive(input) {
 
     return !!Object
         .keys(input)
         .filter(key => input[key] > 0)
         .length;
-        
+
 }
 
-function decrementCharacterCount(input = {}, charToDecrement = '') {
+/**
+ * decrementCharacterCount
+ * 
+ * @param {object} input 
+ * @param {charToDecrement} charToDecrement 
+ */
+
+function decrementCharacterCount(input, charToDecrement) {
 
     let nextInput = Object.assign({}, input);
     if (nextInput[charToDecrement] > 0) {
@@ -117,6 +167,15 @@ function decrementCharacterCount(input = {}, charToDecrement = '') {
     return nextInput;
 
 }
+
+/**
+ * getPermMaths
+ * 
+ * @param {string} input 
+ * @returns {array}
+ * 
+ * passed a string it returns all unique permutations through an efficient mathematical formula
+ */
 
 function getPermMaths(input) {
 
@@ -141,43 +200,43 @@ function getPermMaths(input) {
 
         // get the current object to search and the starting index to search from (keys)
         inputObject = stack[stackLevel].inputObject;
-        startFrom = stack[stackLevel].startFrom; 
+        startFrom = stack[stackLevel].startFrom;
 
         // get the first character (key) whose value is greater than zero
-        let firstAvailableChar = getFirstAvailableCharacter(inputObject, startFrom); 
+        let firstAvailableChar = getFirstAvailableCharacter(inputObject, startFrom);
 
         // if the previous function doesn't return null
-        if(firstAvailableChar !== null) {
-            
+        if (firstAvailableChar !== null) {
+
             // add the character to the current perm
-            result[stackLevel] = firstAvailableChar; 
+            result[stackLevel] = firstAvailableChar;
             // increment the key of the next character to start searching from
-            stack[stackLevel].startFrom = 
+            stack[stackLevel].startFrom =
                 Object
                     .keys(inputObject)
-                    .indexOf(firstAvailableChar) + 1; 
+                    .indexOf(firstAvailableChar) + 1;
 
             // create a copy of the object with the last character's count decremented by one
-            inputObject = decrementCharacterCount(inputObject, firstAvailableChar); 
+            inputObject = decrementCharacterCount(inputObject, firstAvailableChar);
             // add the copy to the next level down in the stack array
             stackLevel++;
-            stack[stackLevel] = { 
-                inputObject, 
-                startFrom: 0 
+            stack[stackLevel] = {
+                inputObject,
+                startFrom: 0
             };
 
         }
         else {
 
             // if the input has all zeros as values the next permutation is complete 
-            if(!isInputObjectStillActive(inputObject)) {
+            if (!isInputObjectStillActive(inputObject)) {
                 results.push(result.join(''));
             }
             // go back up one in the stack and repeat
             stackLevel--;
 
         }
-        
+
     }
 
     return results;

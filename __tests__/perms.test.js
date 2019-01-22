@@ -9,7 +9,11 @@ const {
 
 const { getPerms } = require('../src/perm');
 
-describe('Perms are back!', function() {
+describe('\nNon mathematical recursion\n', function() {
+
+    /**
+     * getPerms
+     */
 
     it('should return an array with a single character when passed a single character string', function() {
         expect(getPerms('a')).toHaveLength(1);
@@ -132,7 +136,7 @@ describe('Perms are back!', function() {
 
 });
 
-describe('Efficient getPerms', function() {
+describe('\nMathematical recursion\n', function() {
 
     /**
      * getNumberOfOccurencesInString

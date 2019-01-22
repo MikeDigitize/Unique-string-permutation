@@ -1,5 +1,24 @@
-import { getPerms } from './perm';
-import { getPermMaths } from './perm-math';
+const { getPerms } = require('./perm');
+const { getPermMaths } = require('./perm-math');
+
+performance.mark('getPermMaths-start');
+getPermMaths('A');
+getPermMaths('AB');
+getPermMaths('ABC');
+getPermMaths('ABCD');
+getPermMaths('ABCDE');
+getPermMaths('ABCDEF');
+performance.mark('getPermMaths-end');
+performance.measure(
+    'getPermMaths',
+    'getPermMaths-start',
+    'getPermMaths-end'
+);
+var measures = performance.getEntriesByName('getPermMaths');
+var measure = measures[0];
+console.log('getPermsMaths milliseconds:', measure.duration, measures);
+performance.clearMarks();
+performance.clearMeasures();
 
 performance.mark('getPerms-start');
 getPerms('A');
@@ -17,24 +36,5 @@ performance.measure(
 var measures = performance.getEntriesByName('getPerms');
 var measure = measures[0];
 console.log('getPerms milliseconds:', measure.duration, measures);
-performance.clearMarks();
-performance.clearMeasures();
-
-performance.mark('getPermMaths-start');
-getPermMaths('A');
-getPermMaths('AB');
-getPermMaths('ABC');
-getPermMaths('ABCD');
-getPermMaths('ABCDE');
-getPermMaths('ABCDEF');
-performance.mark('getPermMaths-end');
-performance.measure(
-    'getPermMaths',
-    'getPermMaths-start',
-    'getPermMaths-end'
-);
-var measures = performance.getEntriesByName('getPermMaths');
-var measure = measures[0];
-console.log('getPermMaths milliseconds:', measure.duration, measures);
 performance.clearMarks();
 performance.clearMeasures();
