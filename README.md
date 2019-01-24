@@ -20,7 +20,7 @@ Pass a string of characters and return an array of every unique combination of t
 perm.js
 ```
 
-Find every single combination of letters, including duplicates, and then return as a Set, which allows only unique values, spread into an array.
+Loop through each character finding every single combination of it with the remaining letters, including duplicates, and return as a Set, which allows only unique values, spread into an array.
 
 ```javascript
 let results = [];
@@ -36,7 +36,8 @@ for(let i = 0; i < input.length; i++) {
   let inputWithoutCurrentChar = `${inputStartToCurrentChar}${currentCharToInputEnd}`;
 
   // get an array of the current character combined with all the remaining characters
-  let resultsPrependedWithCurrentChar = getPerms(inputWithoutCurrentChar).map(result => `${currentChar}${result}`);
+  let resultsPrependedWithCurrentChar = 
+    getPerms(inputWithoutCurrentChar).map(result => `${currentChar}${result}`);
   
   // add the results
   results = results.concat(resultsPrependedWithCurrentChar);
@@ -63,7 +64,9 @@ let results =
 
                 let inputWithoutCurrentChar = `${inputStartToCurrentChar}${currentCharToInputEnd}`;
 
-                let resultsPrependedWithCurrentChar = getPerms(inputWithoutCurrentChar).map(char => `${currentChar}${char}`);
+                let resultsPrependedWithCurrentChar = 
+                  getPerms(inputWithoutCurrentChar).map(char => `${currentChar}${char}`);
+                  
                 return result.concat(resultsPrependedWithCurrentChar);
                 
             }, []);
@@ -76,39 +79,40 @@ perm-math.js
 ```
 
 This approach is taken from [this excellent visual explanation](https://youtu.be/nYFd7VHKyWQ) of how a precise recursive algorithm would solve the problem.
-
-#### The gist of the algorithm
+  
+### 1. Convert the string to an object
 
 Take a set of chars e.g. 'ABC' and create an object representing the characters and their respective counts e.g. { A: 1, B: 1, C: 1 }. In the string 'ABC' there are one As, one B and one C.
 ```
 'ABC' // { A: 1, B: 1, C: 1 }
 ```
 Think of this first object as level zero in the recursion - it's important you remember the level!
-
-
+  
+### 2. Create a result array for a permutation
 Create a result array with the same length as the input string e.g. 'AABC' has a length of four, so create a result array with a length of four to hold each premutation.
 ```
 'ABC' // length 3 
 [,,] // empty array of length 3
 ```
-
-
+   
+### 3. Find the first character
 Working in alphabetical order take the first char whose count is greater than zero - 'A.'
 ```
 { A: 1, B: 1, C: 1 } // A is the first character
 ```
-
+  
+### 4. Add it to the result
 Add this character to the *level* (index) of recursion in the result array - in this case zero.
 ```
 [A,,]
 ```
-
+  
 Remember the last character found in the object. 
 ```
 { A: 1, B: 1, C: 1 } // last character used is A
 ```
 
-
+### 5. Go one level deeper into the recursion
 Create a copy of the object decreasing the last character by one.
 ```
 { A: 0, B: 1, C: 1 }
@@ -123,8 +127,8 @@ Add this char at level (index) one in the result array.
 [A,B,]
 { A: 0, B: 1, C: 1 } // last character used is B
 ```
-
-
+  
+### 6. Go another level deeper
 Create a copy of the object decreasing the last character by one. 
 ```
 { A: 0, B: 0, C: 1 }
@@ -139,8 +143,8 @@ Add C at index two in the array.
 [A,B,C]
 { A: 0, B: 0, C: 1 } // last character used is A
 ```
-
-
+  
+### 7. Permutation complete!
 Create a copy of the object decreasing the last character by one.
 ```
 { A: 0, B: 0, C: 0 }
@@ -154,8 +158,8 @@ Add the contents of the result array to a results array as a string.
 'ABC'
 ['ABC'] // final results array
 ```
-
-
+  
+### 8. Work your way back up the recursion 
 Now go back up a level in the recursion.
 ```
 { A: 0, B: 0, C: 1 } // last char was C
@@ -172,7 +176,8 @@ We're at level 1 in the recursion so add 'C' at index one in the result array.
 // note: the result array hasn't been emptied
 [A,C,C]
 ```
-
+  
+### 9. Once you've found a match, go back down
 Create a copy of the object decreasing the last character by one.
 We're now one level deeper in the recursion (level two).
 ```
@@ -196,8 +201,8 @@ Second result 'ACB'.
 ```
 ['ABC', 'ACB'] // final results array
 ```
-
-
+  
+### 10. Repeat until your first object yeilds no more results
 Now go up again and repeat. Eventually following this pattern you'll end up with -
 ```
 ['ABC', 'ACB', 'BAC', 'BCA', 'CAB', 'CBA']
