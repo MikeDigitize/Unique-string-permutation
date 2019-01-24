@@ -82,14 +82,14 @@ This approach is taken from [this excellent visual explanation](https://youtu.be
   
 ### 1. Convert the string to an object
 
-Take a set of chars e.g. 'ABC' and create an object representing the characters and their respective counts e.g. { A: 1, B: 1, C: 1 }. In the string 'ABC' there are one As, one B and one C.
+Take a set of chars e.g. 'ABC' and create an object representing the characters and their respective counts e.g. { A: 1, B: 1, C: 1 }. In the string 'ABC' there is one A, one B and one C.
 ```
 'ABC' // { A: 1, B: 1, C: 1 }
 ```
 Think of this first object as level zero in the recursion - it's important you remember the level!
   
 ### 2. Create a result array for a permutation
-Create a result array with the same length as the input string e.g. 'AABC' has a length of four, so create a result array with a length of four to hold each premutation.
+Create a result array with the same length as the input string e.g. 'AABC' has a length of four, so create a result array with a length of four to hold each permutation.
 ```
 'ABC' // length 3 
 [,,] // empty array of length 3
