@@ -2,8 +2,8 @@
 
 ## Install and run tests
 ```
-yarn // to install
-yarn test // to run tests
+yarn
+yarn test
 ```
 
 ## Goal
@@ -141,7 +141,7 @@ We're at level 2 in the recursion.
 Add C at index two in the array. 
 ```
 [A,B,C]
-{ A: 0, B: 0, C: 1 } // last character used is A
+{ A: 0, B: 0, C: 1 } // last character used is C
 ```
   
 ### 7. Permutation complete!
@@ -151,11 +151,10 @@ Create a copy of the object decreasing the last character by one.
 ```
 We're now one level deeper in the recursion - level three.
 
-There are no more characters less than zero - this is the sign that a new permutation has been created!
-Add the contents of the result array to a results array as a string.
+There are no more characters greater than zero - all characters being zero is the sign that a new permutation has been created!
+Add the contents of the result array to a (final) results array, as a string.
 ```
-[A,B,C]
-'ABC'
+[A,B,C] // 'ABC' to string
 ['ABC'] // final results array
 ```
   
@@ -171,7 +170,7 @@ After the last char ('C') there are no more zeros, so go back up another level.
 ```
 
 After the last char 'B', 'C' is the first available character.
-We're at level 1 in the recursion so add 'C' at index one in the result array.
+We're at level one in the recursion so add 'C' at index one in the result array.
 ```
 // note: the result array hasn't been emptied
 [A,C,C]
@@ -179,7 +178,7 @@ We're at level 1 in the recursion so add 'C' at index one in the result array.
   
 ### 9. Once you've found a match, go back down
 Create a copy of the object decreasing the last character by one.
-We're now one level deeper in the recursion (level two).
+We're now one level deeper in the recursion - level two.
 ```
 { A: 0, B: 1, C: 0 }
 ```
@@ -195,8 +194,8 @@ Create a copy of the object decreasing the last character by one.
 ```
 We're now one level deeper in the recursion - level three.
 
-There are no more characters less than zero - this is the sign that a new permutation has been created!
-Second result 'ACB'.
+There are no more characters greater than zero - a new permutation has been created!
+Second result - 'ACB'.
 
 ```
 ['ABC', 'ACB'] // final results array
