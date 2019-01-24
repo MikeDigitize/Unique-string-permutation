@@ -79,17 +79,19 @@ This approach is taken from [this excellent visual explanation](https://youtu.be
 
 #### The gist of the algorithm
 
-1. Take a set of chars e.g. 'ABC' and create an object representing the characters and their respective counts e.g. { A: 1, B: 1, C: 1 }. In the string 'ABC' there are one As, one B and one C.
+Take a set of chars e.g. 'ABC' and create an object representing the characters and their respective counts e.g. { A: 1, B: 1, C: 1 }. In the string 'ABC' there are one As, one B and one C.
 ```
 'ABC' // { A: 1, B: 1, C: 1 }
 ```
 Think of this first object as level zero in the recursion - it's important you remember the level!
+
 
 Create a result array with the same length as the input string e.g. 'AABC' has a length of four, so create a result array with a length of four to hold each premutation.
 ```
 'ABC' // length 3 
 [,,] // empty array of length 3
 ```
+
 
 Working in alphabetical order take the first char whose count is greater than zero - 'A.'
 ```
@@ -106,6 +108,7 @@ Remember the last character found in the object.
 { A: 1, B: 1, C: 1 } // last character used is A
 ```
 
+
 Create a copy of the object decreasing the last character by one.
 ```
 { A: 0, B: 1, C: 1 }
@@ -120,6 +123,7 @@ Add this char at level (index) one in the result array.
 [A,B,]
 { A: 0, B: 1, C: 1 } // last character used is B
 ```
+
 
 Create a copy of the object decreasing the last character by one. 
 ```
@@ -136,6 +140,7 @@ Add C at index two in the array.
 { A: 0, B: 0, C: 1 } // last character used is A
 ```
 
+
 Create a copy of the object decreasing the last character by one.
 ```
 { A: 0, B: 0, C: 0 }
@@ -149,6 +154,7 @@ Add the contents of the result array to a results array as a string.
 'ABC'
 ['ABC'] // final results array
 ```
+
 
 Now go back up a level in the recursion.
 ```
@@ -190,6 +196,7 @@ Second result 'ACB'.
 ```
 ['ABC', 'ACB'] // final results array
 ```
+
 
 Now go up again and repeat. Eventually following this pattern you'll end up with -
 ```
