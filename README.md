@@ -6,7 +6,7 @@ yarn
 yarn test
 ```
 
-## Goal
+### Goal
 
 Pass a string of characters and return an array of every unique combination of those characters. 
 
@@ -14,7 +14,7 @@ Pass a string of characters and return an array of every unique combination of t
 'ABC' // ['ABC', 'ACB', 'BAC', 'BCA', 'CAB', 'CBA']
 ```
 
-### Version 1 - Brute force recursion!
+## Version 1 - Brute force recursion!
 
 ```
 perm.js
@@ -76,7 +76,7 @@ let results =
             }, []);
 ```
 
-### Version 2 - Mathematical recursion!
+## Version 2 - Mathematical recursion!
 
 ```
 perm-math.js
