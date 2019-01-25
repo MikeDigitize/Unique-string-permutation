@@ -23,31 +23,35 @@ perm.js
 Loop through each character finding every single combination with the remaining letters, including duplicates, and return as a Set, which allows only unique values, spread into an array.
 
 ```javascript
-let results = [];
+function getPerms(input) {
 
-for(let i = 0; i < input.length; i++) {
+  let results = [];
 
-  let currentChar = input[i];
+  for(let i = 0; i < input.length; i++) {
 
-  // remove the current character from the string, leaving the remainder
-  let inputStartToCurrentChar = input.substr(0, i);
-  let currentCharToInputEnd = input.substr(i+1, input.length);
+    let currentChar = input[i];
+
+    // remove the current character from the string, leaving the remainder
+    let inputStartToCurrentChar = input.substr(0, i);
+    let currentCharToInputEnd = input.substr(i+1, input.length);
+
+    let inputWithoutCurrentChar = `${inputStartToCurrentChar}${currentCharToInputEnd}`;
+
+    // get an array of the current character combined with all the remaining characters
+    let resultsPrependedWithCurrentChar = 
+      getPerms(inputWithoutCurrentChar).map(result => `${currentChar}${result}`);
+
+    // add the results
+    results = results.concat(resultsPrependedWithCurrentChar);
+
+  }
+
+  // auto unique-ify
+  return [
+    ...new Set(results)
+  ];
   
-  let inputWithoutCurrentChar = `${inputStartToCurrentChar}${currentCharToInputEnd}`;
-
-  // get an array of the current character combined with all the remaining characters
-  let resultsPrependedWithCurrentChar = 
-    getPerms(inputWithoutCurrentChar).map(result => `${currentChar}${result}`);
-  
-  // add the results
-  results = results.concat(resultsPrependedWithCurrentChar);
-
 }
-
-// auto unique-ify
-return [
-  ...new Set(results)
-];
 ```
 
 You could replace the `for` loop with a `reduce` function if you're that way inclined.
