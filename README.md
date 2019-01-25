@@ -20,7 +20,7 @@ Pass a string of characters and return an array of every unique combination of t
 perm.js
 ```
 
-Loop through each character finding every single combination of it with the remaining letters, including duplicates, and return as a Set, which allows only unique values, spread into an array.
+Loop through each character finding every single combination with the remaining letters, including duplicates, and return as a Set, which allows only unique values, spread into an array.
 
 ```javascript
 let results = [];
