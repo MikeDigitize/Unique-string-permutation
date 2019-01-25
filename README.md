@@ -155,7 +155,7 @@ Create a copy of the object decreasing the last character by one.
 ```
 We're now one level deeper in the recursion - level three.
 
-There are no more characters greater than zero - all characters being zero is the sign that a new permutation has been created!
+There are no characters with a value greater than zero - all characters at zero is the sign that a new permutation has been created!
 Add the contents of the result array to a (final) results array, as a string.
 ```
 [A,B,C] // 'ABC' to string
@@ -168,12 +168,12 @@ Now go back up a level in the recursion.
 { A: 0, B: 0, C: 1 } // last char was C
 ```
 
-After the last char ('C') there are no more zeros, so go back up another level.
+After the last char ('C') there are no more characters left, so go back up another level.
 ```
 { A: 0, B: 1 C: 1 } // last char was B
 ```
 
-After the last char 'B', 'C' is the first available character.
+After the last char 'B', 'C' is the first character with a value greater than zero.
 We're at level one in the recursion so add 'C' at index one in the result array.
 ```
 // note: the result array hasn't been emptied
@@ -198,7 +198,7 @@ Create a copy of the object decreasing the last character by one.
 ```
 We're now one level deeper in the recursion - level three.
 
-There are no more characters greater than zero - a new permutation has been created!
+There are no characters greater than zero - a new permutation has been created!
 Second result - 'ACB'.
 
 ```
